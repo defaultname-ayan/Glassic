@@ -1,6 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Inter , Raleway} from "next/font/google";
 import "./globals.css";
+
+const raleway = Raleway({
+  variable: "--font-raleway",
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,8 +35,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      {/*
+        NOTE: In development you may see a hydration mismatch when a browser
+        extension mutates the DOM (for example adding attributes like
+        `cz-shortcut-listen`). The attribute is not present in the server
+        HTML, so React warns about a mismatch. We add
+        `suppressHydrationWarning` to avoid the dev-only overlay while
+        keeping the change minimal. Prefer testing with extensions disabled
+        or in incognito to confirm root cause.
+      */}
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
+        className={`${inter.variable} ${geistSans.variable} ${geistMono.variable} ${raleway.variable} antialiased`}
       >
         {children}
       </body>
